@@ -8,13 +8,13 @@
 @endphp
 
 <div class="product__item">
-    <div class="product__item__pic set-bg" data-setbg="{{ $firstImage }}">
+    <div class="product__item__pic set-bg" data-setbg="{{ $product->image_url }}">
 
         @if ($isNew)
             <span class="label">New</span>
         @endif
 
-        <img src="{{ $firstImage }}" alt="{{ $product->name }}" loading="lazy">
+        <img src="/img/product/product-4.jpg" alt="{{ $product->name }}" loading="lazy">
 
         <ul class="product__hover">
             <li>
