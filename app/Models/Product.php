@@ -11,7 +11,7 @@ class Product extends Model
     use HasFactory;
 
 
- 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -38,8 +38,8 @@ class Product extends Model
     /**
      * Get the category that owns the product.
      */
-    public function category(): BelongsTo
+    public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }

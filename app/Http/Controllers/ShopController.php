@@ -22,7 +22,7 @@ class ShopController extends Controller
 
     public function home()
     {
-        return view('pages/index');
+        return view('pages.index');
     }
     /**
      * Show the form for creating a new resource.
