@@ -53,7 +53,7 @@
 
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            <img src={{ auth()->user()->picture }}alt="profile" />
+                            <img src={{ auth()->user()->picture ?? asset('default-profile.png') }}alt="profile" />
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
@@ -335,8 +335,19 @@
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href={{ route('adminProfilePage') }}>
                                         Profile </a></li>
-                                <li class="nav-item"> <a class="nav-link" href={{ route('logout') }}> Logout </a>
+                                {{-- <li class="nav-item"> <a class="nav-link" href={{ route('logout') }}> Logout </a>
+                                </li> --}}
+                                <li>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
                                 </li>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+
                             </ul>
                         </div>
                     </li>

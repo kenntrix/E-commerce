@@ -5,7 +5,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <p class="card-title mb-0">Customer</p>
+                    <p class="card-title mb-0">Customers</p>
                     <div class="table-responsive">
                         <table class="table table-striped table-borderless">
                             <thead>
@@ -17,7 +17,7 @@
                                     <th>Activation</th>
                                     <th>Joined</th>
                                     <th>Last Update</th>
-                                    <th>Roal</th>
+                                    <th>Role</th>
                                     <th>Delete</th>
                                 </tr>
                             </thead>
@@ -25,8 +25,8 @@
                                 @foreach ($users as $item)
                                     <tr>
                                         <td style="font-size: small;">{{ $item->id }}</td>
-                                        <td style="font-size: small;"><img src={{ $item->picture }} alt=""></td>
-                                        <td style="font-size: small;">{{ $item->fullname }}</td>
+                                        <td style="font-size: small;"><img src={{ $item->Picture }} alt=""></td>
+                                        <td style="font-size: small;">{{ $item->name }}</td>
                                         <td style="font-size: x-small;">{{ $item->email }}</td>
                                         <td style="font-size: small;">{{ $item->is_active ? 'Active' : 'Unactive' }}</td>
                                         <td style="font-size: x-small;">{{ $item->created_at->diffForHumans() }}</td>
