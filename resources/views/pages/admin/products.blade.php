@@ -5,8 +5,13 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <a class="btn btn-warning mb-2" href={{ route('addProductPage') }}>Add Product</a>
                     <p class="card-title mb-0">Products</p>
+
+                    <div class="d-flex justify-content-end">
+
+                        <a class="btn btn-warning mb-2" href="{{ route('addProductPage') }}">Add Product</a>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="table table-striped table-borderless">
                             <thead>
@@ -49,8 +54,7 @@
                                                 class="btn btn-success">Edit</a>
                                         </td>
                                         <td>
-                                            <form action="{{ route('deleteProduct', $item->id) }}"
-                                                method="POST"
+                                            <form action="{{ route('deleteProduct', $item->id) }}" method="POST"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 @method('DELETE')

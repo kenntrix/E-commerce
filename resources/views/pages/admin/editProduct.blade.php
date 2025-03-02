@@ -1,96 +1,107 @@
 @extends('layouts.admin')
 
 @section('admin-content')
-    <div class="row">
-        <div class="col-lg-6 col-md-6 mx-auto">
-            <div class="section-title">
-                <span>Welcome to E-Commerse Store Admin</span>
-                <h2>Edit Your Product</h2>
-                <p>As you might expect of a company that began as a high-end interiors contractor, we pay
-                    strict attention.</p>
-                @if (session('message'))
-                    <span>{{ session('message') }}</span>
-                @endif
-            </div>
-            <div class="contact__form">
-                <form action={{ route('updateProduct', $product) }} method="POST" enctype="multipart/form-data"
-                    class="form-group">
-                    @csrf
-                    @method('patch')
-                    <div class="row">
-                        <div class="col-lg-12 mb-4">
-                            <input class="form-control" name="title" value={{ $product->title }} type="text"
-                                placeholder="Product Name" class="@error('title') border border-danger @enderror">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header text-center bg-primary text-white">
+                    <h3 class="font-weight-bold">Edit Product</h3>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-3">
+                        <h5 class="fw-bold">Update product details below.</h5>
+                    </div>
+                    
+                    {{-- Display success message --}}
+                    @if (session('message'))
+                        <div class="alert alert-success text-center">
+                            {{ session('message') }}
+                        </div>
+                    @endif
+
+                    <form action="{{ route('updateProduct', $product) }}" method="POST" enctype="multipart/form-data" class="form-group">
+                        @csrf
+                        @method('PATCH')
+
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Product Name</label>
+                            <input id="title" name="title" type="text" value="{{ old('title', $product->title) }}" 
+                                   class="form-control @error('title') is-invalid @enderror" placeholder="Enter product name">
                             @error('title')
-                                <p class="text-danger">{{ $message }}</p>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="col-lg-12 mb-4">
-                            <img class="rounded" src={{ $product->picture }} width="100px" alt={{ $product->title }}>
+                        <div class="mb-3 text-center">
+                            <img src="{{ $product->picture }}" class="img-thumbnail" width="120px" alt="{{ $product->title }}">
                         </div>
 
-                        <div class="col-lg-12 mb-4">
-                            <input name="picture" type="file"
-                                class="form-control @error('picture') border border-danger @enderror"
-                                placeholder="picture URL">
+                        <div class="mb-3">
+                            <label for="picture" class="form-label">Product Image</label>
+                            <input id="picture" name="picture" type="file" class="form-control @error('picture') is-invalid @enderror">
                             @error('picture')
-                                <p class="text-danger">{{ $message }}</p>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="col-lg-12 mb-4">
-                            <select name="category"
-                                class="form-control mx-auto @error('category') border border-danger @enderror">
-                                <option value="Footwear" {{ $product->category == 'Footwear' ? 'selected' : '' }}>Footwear
-                                </option>
-                                <option value="Huddy" {{ $product->category == 'Huddy' ? 'selected' : '' }}>Huddy</option>
-                                <option value="T-Shirt" {{ $product->category == 'T-Shirt' ? 'selected' : '' }}>T-Shirt
-                                </option>
-                                <option value="Bag" {{ $product->category == 'Bag' ? 'selected' : '' }}>Bag</option>
-                                <option value="Shirt" {{ $product->category == 'Shirt' ? 'selected' : '' }}>Shirt</option>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <select id="category" name="category" class="form-select @error('category') is-invalid @enderror">
+                                <option value="null" selected>Select Category</option>
+                                @foreach(['Footwear', 'Huddy', 'T-Shirt', 'Bag', 'Shirt'] as $category)
+                                    <option value="{{ $category }}" {{ $product->category == $category ? 'selected' : '' }}>{{ $category }}</option>
+                                @endforeach
                             </select>
+                            @error('category')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div class="col-lg-12 mb-4">
-                            <select name="sale"
-                                class="form-control mx-auto @error('sale') border border-danger @enderror">
+                        <div class="mb-3">
+                            <label for="sale" class="form-label">Sale Status</label>
+                            <select id="sale" name="sale" class="form-select @error('sale') is-invalid @enderror">
                                 <option value="1" {{ $product->sale == '1' ? 'selected' : '' }}>In Sale</option>
                                 <option value="0" {{ $product->sale == '0' ? 'selected' : '' }}>Not In Sale</option>
                             </select>
-                        </div>
-
-                        <div class="col-lg-6 mb-4">
-                            <input class="form-control" name="price" value={{ $product->price }} type="number"
-                                placeholder="Price" class="@error('price') border border-danger @enderror">
-                            @error('price')
-                                <p class="text-danger">{{ $message }}</p>
+                            @error('sale')
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="col-lg-6 mb-4">
-                            <input class="form-control" name="quantity" value={{ $product->quantity }} type="number"
-                                placeholder="Quantity" class="@error('quantity') border border-danger @enderror">
-                            @error('quantity')
-                                <p class="text-danger">{{ $message }}</p>
-                            @enderror
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="price" class="form-label">Price</label>
+                                <input id="price" name="price" type="number" value="{{ old('price', $product->price) }}" 
+                                       class="form-control @error('price') is-invalid @enderror" placeholder="Enter price">
+                                @error('price')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="quantity" class="form-label">Quantity</label>
+                                <input id="quantity" name="quantity" type="number" value="{{ old('quantity', $product->quantity) }}" 
+                                       class="form-control @error('quantity') is-invalid @enderror" placeholder="Enter quantity">
+                                @error('quantity')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
 
-                        <div class="col-lg-12">
-                            <textarea name="description" class="form-control @error('description') border border-danger @enderror"
-                                placeholder="Description">{{ $product->description }}</textarea>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea id="description" name="description" class="form-control @error('description') is-invalid @enderror" 
+                                      rows="3" placeholder="Enter product description">{{ old('description', $product->description) }}</textarea>
                             @error('description')
-                                <p class="text-danger">{{ $message }}</p>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="col-lg-12">
-                            <br>
-                            <button type="submit" class="btn btn-success">Save</button>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success px-4">Update Product</button>
                         </div>
-
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

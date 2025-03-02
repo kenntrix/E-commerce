@@ -23,9 +23,15 @@
     <link rel="stylesheet" href={{ asset('css/slicknav.min.css') }} type="text/css">
     <link rel="stylesheet" href={{ asset('css/style.css') }} type="text/css">
     <!-- Scripts -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Bundle (JS and Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+
 
     <script src={{ asset('js/jquery-3.3.1.min.js') }}></script>
     <script src={{ asset('js/bootstrap.min.js') }}></script>
@@ -130,11 +136,10 @@
                                 @endif
 
 
-                               @can('can_access_catalog')
-                               <li><a href="{{ route('dashboard') }}">Admin Dashboard</a></li>
-  
-                               @endcan
-                             
+                                @can('can_access_catalog')
+                                    <li><a href="{{ route('dashboard') }}">Admin Dashboard</a></li>
+                                @endcan
+
 
                             </ul>
                         </nav>
@@ -160,7 +165,13 @@
             {{-- @yield('content') --}}
             {{ $slot }}
         </main>
+
     </div>
+
+
+
+@include('components.footer.footer')
+
 
     <!-- Js Plugins -->
 

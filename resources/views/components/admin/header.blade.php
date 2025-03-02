@@ -337,8 +337,8 @@
                                         Profile </a></li>
                                 {{-- <li class="nav-item"> <a class="nav-link" href={{ route('logout') }}> Logout </a>
                                 </li> --}}
-                                <li>
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         Logout
                                     </a>
                                 </li>
